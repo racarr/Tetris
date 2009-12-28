@@ -2,6 +2,14 @@
 #include <stdlib.h>
 
 void
+rectangle_one_button_pressed (ClutterActor *actor,
+			      ClutterEvent *event,
+			      gpointer user_data)
+{
+  g_print ("Woah!\n");
+}
+
+void
 add_rectangle_one (ClutterActor *stage)
 {
   ClutterColor red = {0xff, 0x00, 0x00, 0xff};
@@ -13,10 +21,15 @@ add_rectangle_one (ClutterActor *stage)
   
   clutter_actor_set_size (rect, 100, 100);
   clutter_actor_set_position (rect, 0, 0);
+  clutter_actor_set_reactive (rect, TRUE);
  
   clutter_rectangle_set_color (CLUTTER_RECTANGLE (rect), &red);
   clutter_rectangle_set_border_color (CLUTTER_RECTANGLE (rect), &black);
   clutter_rectangle_set_border_width (CLUTTER_RECTANGLE (rect), 5);
+  
+  
+  g_signal_connect (rect, "button-press-event", 
+		    G_CALLBACK (rectangle_one_button_pressed), NULL);
 }
 
 int
