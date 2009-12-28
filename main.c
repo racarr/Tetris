@@ -5,7 +5,7 @@ void
 add_rectangle_one (ClutterActor *stage)
 {
   ClutterColor red = {0xff, 0x00, 0x00, 0xff};
-  ClutterColor black = {0x00, 0x00, 0x00, 0x00};
+  ClutterColor black = {0x00, 0x00, 0x00, 0xff};
   //Don't need to use typesafe cast, since we know it will be a rectangle
   ClutterActor *rect = clutter_rectangle_new ();
   
