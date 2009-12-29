@@ -12,7 +12,7 @@ button_press_callback (ClutterActor *actor,
 		       ClutterEvent *event,
 		       gpointer user_data)
 {
-  g_print("Boo? Oh cool, I think I get what handlers are now.\n");
+  clutter_actor_animate(actor, CLUTTER_EASE_OUT_QUAD, 250, "opacity", 0, NULL);
 }
 
 void
