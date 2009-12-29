@@ -5,6 +5,7 @@
 #define STAGE_HEIGHT 500
 
 #define BUTTON_SIZE 50
+#define BORDER_SIZE 10
 
 void
 setup_stage (ClutterActor *stage)
