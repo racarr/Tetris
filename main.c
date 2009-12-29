@@ -8,6 +8,14 @@
 #define BORDER_SIZE 5
 
 void
+button_press_callback (ClutterActor *actor,
+		       ClutterEvent *event,
+		       gpointer user_data)
+{
+  g_print("Boo? Oh cool, I think I get what handlers are now.\n");
+}
+
+void
 setup_stage (ClutterActor *stage)
 {
   ClutterColor black = {0x00, 0x00, 0x00, 0xff};
@@ -49,6 +57,12 @@ populate_stage (ClutterActor *stage)
   
   clutter_actor_set_position (b1, 50, STAGE_HEIGHT/2);
   clutter_actor_set_position (b2, STAGE_WIDTH-50, STAGE_HEIGHT/2);
+
+  clutter_actor_set_reactive (b1, TRUE);
+  clutter_actor_set_reactive (b2, TRUE);
+
+  g_signal_connect (b1, "button-press-event", G_CALLBACK (button_press_callback), NULL);
+  g_signal_connect (b2, "button-press-event", G_CALLBACK (button_press_callback), NULL);
 }
 
 int
