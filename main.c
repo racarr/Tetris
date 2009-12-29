@@ -19,8 +19,14 @@ setup_stage (ClutterActor *stage)
 ClutterActor *
 make_button (ClutterColor *color, ClutterColor *border_color)
 {
-  ClutterActor *but;
-  
+  ClutterActor *but = clutter_rectangle_new ();
+
+  //  clutter_container_add_actor (CLUTTER_CONTAINER (stage), but);
+  clutter_actor_set_size (but, BUTTON_SIZE, BUTTON_SIZE);
+  clutter_actor_set_position (but, 10, 10);
+  clutter_rectangle_set_color (CLUTTER_RECTANGLE (but), color);
+  clutter_rectangle_set_border_color (CLUTTER_RECTANGLE (but), border_color);
+  clutter_rectangle_set_border_width (CLUTTER_RECTANGLE (but), 5);
   
   return but;
 }
