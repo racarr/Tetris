@@ -15,13 +15,15 @@ setup_winning_animation (ClutterActor *stage)
   ClutterColor white = {0xff, 0xff, 0xff, 0xff};
   ClutterActor *text = clutter_text_new_full("Bitstream Vera Sans 40",
 					     "Congratulations",
-					     &white);
-  
+					     &white);  
+
   clutter_actor_set_anchor_point_from_gravity (text, CLUTTER_GRAVITY_CENTER);
+  clutter_actor_set_position (text, STAGE_WIDTH/2, -40);
 
-
-
+  clutter_container_add_actor (CLUTTER_CONTAINER (stage), text);
   clutter_actor_show (text);
+
+  clutter_actor_animate(text, CLUTTER_EASE_OUT_BOUNCE, 500, "y", STAGE_HEIGHT/2.0, NULL);
 }
 
 void
