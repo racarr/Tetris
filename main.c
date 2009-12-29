@@ -7,12 +7,36 @@
 #define BUTTON_SIZE 50
 #define BORDER_SIZE 5
 
+int buttons_pressed = 0;
+
+void
+setup_winning_animation (ClutterActor *stage)
+{
+  ClutterColor white = {0xff, 0xff, 0xff, 0xff};
+  ClutterActor *text = clutter_text_new_full("Bitstream Vera Sans 40",
+					     "Congratulations",
+					     &white);
+  
+  clutter_actor_set_anchor_point_from_gravity (text, CLUTTER_GRAVITY_CENTER);
+
+
+
+  clutter_actor_show (text);
+}
+
 void
 button_press_callback (ClutterActor *actor,
 		       ClutterEvent *event,
 		       gpointer user_data)
 {
   clutter_actor_animate(actor, CLUTTER_EASE_OUT_QUAD, 250, "opacity", 0, NULL);
+  buttons_pressed++;
+  
+  if (buttons_pressed == 2)
+    {
+      ClutterActor *stage = clutter_actor_get_parent (actor);
+      setup_winning_animation(stage);
+    }
 }
 
 void
