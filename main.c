@@ -5,7 +5,7 @@
 #define STAGE_HEIGHT 500
 
 #define BUTTON_SIZE 50
-#define BORDER_SIZE 10
+#define BORDER_SIZE 5
 
 void
 setup_stage (ClutterActor *stage)
@@ -30,6 +30,27 @@ make_button (ClutterColor *color, ClutterColor *border_color)
   return but;
 }
 
+void
+populate_stage (ClutterActor *stage)
+{
+  ClutterActor *b1, *b2;
+  ClutterColor red = {0xff, 0x00, 0x00, 0xff};
+  ClutterColor blue = {0x00, 0x00, 0xff, 0xff};
+  ClutterColor white = {0xff, 0xff, 0xff, 0xff};
+  
+  b1 = make_button (&red, &white);
+  b2 = make_button (&blue, &white);
+
+  clutter_container_add_actor (CLUTTER_CONTAINER (stage), b1);
+  clutter_container_add_actor (CLUTTER_CONTAINER (stage), b2);
+  
+  clutter_actor_set_anchor_point_from_gravity (b1, CLUTTER_GRAVITY_CENTER);
+  clutter_actor_set_anchor_point_from_gravity (b2, CLUTTER_GRAVITY_CENTER);
+  
+  clutter_actor_set_position (b1, 50, STAGE_HEIGHT/2);
+  clutter_actor_set_position (b2, STAGE_WIDTH-50, STAGE_HEIGHT/2);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -38,6 +59,7 @@ main (int argc, char **argv)
   
   stage = clutter_stage_new ();
   setup_stage (stage);
+  populate_stage (stage);
 
   clutter_actor_show (stage);
   
