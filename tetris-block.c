@@ -32,6 +32,11 @@
 TetrisBlock *
 tetris_block_new (guint x, guint y, TetrisBlockType type, gboolean is_center_of_mass)
 {
+  TetrisBlock *ret;
+  
+  /* Allocate Block */
+  /* Initialize Variables*/
+  return ret;
 }
 
 /*
@@ -43,6 +48,8 @@ tetris_block_new (guint x, guint y, TetrisBlockType type, gboolean is_center_of_
 void
 tetris_block_free (TetrisBlock *block)
 {
+  /* Free blocks connection member */
+  /* Free block */
 }
 
 
@@ -58,6 +65,14 @@ tetris_block_free (TetrisBlock *block)
 TetrisBlock *
 tetris_block_copy (TetrisBlock *block)
 {
+  TetrisBlock *ret;
+  
+  /* Make sure block is non null */
+  
+  /* Allocate new block */
+  /* Copy over variables */
+  
+  return ret;
 }
 
 /*
@@ -73,6 +88,13 @@ tetris_block_copy (TetrisBlock *block)
 void
 tetris_block_get_center_of_mass (TetrisBlock *block, guint *x, guint *y)
 {
+  /* Make sure block is non null */
+  
+  /* Is block type TETRIS O? if so center of mass is average of other
+     blocks coords */
+  
+  /* If not, go through block->connections and search for block with
+     b->center_of_mass == TRUE */
 }
 
 /*
@@ -88,5 +110,6 @@ tetris_block_get_center_of_mass (TetrisBlock *block, guint *x, guint *y)
 gboolean 
 tetris_block_is_connected (TetrisBlock *a, TetrisBlock *b)
 {
+  /* Is b in a->connections */
 }
 
