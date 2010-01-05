@@ -129,6 +129,13 @@ tetris_block_get_center_of_mass (TetrisBlock *block, guint *x, guint *y)
 gboolean 
 tetris_block_is_connected (TetrisBlock *a, TetrisBlock *b)
 {
-  /* Is b in a->connections */
+  GList *i;
+  for (i = a->connections; i; i = i->next)
+    {
+      TetrisBlock *j = (TetrisBlock *)i->data;
+      if (j == b)
+	return TRUE;
+    }
+  return FALSE;
 }
 
