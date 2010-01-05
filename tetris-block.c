@@ -80,16 +80,23 @@ tetris_block_copy (TetrisBlock *block)
   if(!block) {
     return NULL;
   }
-  /* Allocate new block */
-  ret = g_malloc0 (sizeof(TetrisBlock));
 
-  /* Copy over variables */
-  ret->x = block->x;
-  ret->y = block->y;
-  ret->type = block->type;
-  ret->center_of_mass = block->center_of_mass;
+  TetrisBlock **knex;
+  knex = g_malloc0 (sizeof(TetrisBlock *) * (g_list_length(block->connections)+1));
 
-  
+  GList *i;
+  guint j = 0;
+  for (i = block->connections; i; i = i->next) 
+    {
+      TetrisBlock *c = (TetrisBlock *)i->data;
+      knex[j] = tetris_block_new(c->x, c->y, c->type, c->center_of_mass);
+    }
+
+  tetris_interconnect_blocks(knex, j);
+
+  ret = knex[0];
+
+  g_free(knex);
   
   return ret;
 }
