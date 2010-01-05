@@ -35,7 +35,14 @@ tetris_block_new (guint x, guint y, TetrisBlockType type, gboolean is_center_of_
   TetrisBlock *ret;
   
   /* Allocate Block */
+  ret = g_malloc0 (sizeof(TetrisBlock));
+
   /* Initialize Variables*/
+  ret->x = x;
+  ret->y = y;
+  ret->type = type;
+  ret->center_of_mass = is_center_of_mass;
+
   return ret;
 }
 
@@ -49,7 +56,9 @@ void
 tetris_block_free (TetrisBlock *block)
 {
   /* Free blocks connection member */
+  g_list_free(block->connections);
   /* Free block */
+  g_free(block);
 }
 
 
