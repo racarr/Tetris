@@ -70,7 +70,7 @@ TetrisBlock *tetris_block_copy(TetrisBlock *block);
 void tetris_block_get_center_of_mass(TetrisBlock *block, guint *x, guint *y);
 gboolean tetris_block_is_connected(TetrisBlock *a, TetrisBlock *b);
 
-void tetris_connect_blocks(TetrisBlock **blocks, guint num_blocks);
+void tetris_interconnect_blocks(TetrisBlock **blocks, guint num_blocks);
 
 TetrisBlock *tetris_create_I(guint x, guint y);
 TetrisBlock *tetris_create_J(guint x, guint y);
