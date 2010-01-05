@@ -87,7 +87,7 @@ gboolean tetris_game_move_block(TetrisGame *game, TetrisBlock *block, TetrisDire
 gboolean tetris_game_rotate_block(TetrisGame *game, TetrisBlock *block);
 
 TetrisGame *tetris_game_new();
-void tetris_game_free();
+void tetris_game_free(TetrisGame *game);
 
 void tetris_game_drop_all_above(TetrisGame *game, guint row);
 

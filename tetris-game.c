@@ -30,9 +30,9 @@ tetris_game_new (void)
 }
 
 void 
-tetris_game_free (void)
+tetris_game_free (TetrisGame *game)
 {
-  g_free (ret);
+  g_free (game);
 }
 
 void
