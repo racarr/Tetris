@@ -136,8 +136,8 @@ tetris_block_get_center_of_mass (TetrisBlock *block, guint *x, guint *y)
       x_avg = x_avg / j;
       y_avg = y_avg / j;
 
-      x = x_avg;
-      y = y_avg;
+      *x = x_avg;
+      *y = y_avg;
     }
 	  
   /* If not, go through block->connections and search for block with
@@ -148,8 +148,8 @@ tetris_block_get_center_of_mass (TetrisBlock *block, guint *x, guint *y)
 	c = (TetrisBlock *)i->data;
 	if( c->center_of_mass ) 
 	  {
-	    x = c->x;
-	    y = c->y;
+	    *x = c->x;
+	    *y = c->y;
 	  }
       }
   }
