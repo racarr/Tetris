@@ -77,9 +77,19 @@ tetris_block_copy (TetrisBlock *block)
   TetrisBlock *ret;
   
   /* Make sure block is non null */
-  
+  if(!block) {
+    return NULL;
+  }
   /* Allocate new block */
+  ret = g_malloc0 (sizeof(TetrisBlock));
+
   /* Copy over variables */
+  ret->x = block->x;
+  ret->y = block->y;
+  ret->type = block->type;
+  ret->center_of_mass = block->center_of_mass;
+
+  
   
   return ret;
 }
