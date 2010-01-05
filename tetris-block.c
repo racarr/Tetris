@@ -86,7 +86,7 @@ tetris_block_copy (TetrisBlock *block)
 
   GList *i;
   guint j = 0;
-  for (i = block->connections; i; i = i->next) 
+  for (i = block->connections; i; i = i->next, j++) 
     {
       TetrisBlock *c = (TetrisBlock *)i->data;
       knex[j] = tetris_block_new(c->x, c->y, c->type, c->center_of_mass);
