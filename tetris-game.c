@@ -29,6 +29,11 @@ tetris_game_new (void)
   return ret;
 }
 
+void 
+tetris_game_free (void)
+{
+}
+
 void
 tetris_game_drop_all_above (TetrisGame *game, guint row)
 {
