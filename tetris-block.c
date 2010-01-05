@@ -115,12 +115,45 @@ void
 tetris_block_get_center_of_mass (TetrisBlock *block, guint *x, guint *y)
 {
   /* Make sure block is non null */
+  if(!block) {
+    return;
+  }
+
+  GList *i;
+  guint x_avg, y_avg, j=0;
+  TetrisBlock *c;
   
   /* Is block type TETRIS O? if so center of mass is average of other
      blocks coords */
-  
+  if(block->type = TETRIS_BLOCK_O) 
+    {
+      for(i=block->connections; i; i=i->next, j++) 
+	{
+	  c = (TetrisBlock *)i->data;
+	  x_avg = x_avg + c->x;
+	  y_avg = y_avg + c->y;
+	}
+      x_avg = x_avg / j;
+      y_avg = y_avg / j;
+
+      x = x_avg;
+      y = y_avg;
+    }
+	  
   /* If not, go through block->connections and search for block with
      b->center_of_mass == TRUE */
+  else {
+    for(i=block->connection; i; i=i->next) 
+      {
+	c = (TetrisBlock *)i->data;
+	if( c->center_of_mass ) 
+	  {
+	    x = c->x;
+	    y = c->y;
+	  }
+      }
+  }
+  return;
 }
 
 /*
