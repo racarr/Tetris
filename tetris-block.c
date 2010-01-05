@@ -125,7 +125,7 @@ tetris_block_get_center_of_mass (TetrisBlock *block, guint *x, guint *y)
   
   /* Is block type TETRIS O? if so center of mass is average of other
      blocks coords */
-  if(block->type = TETRIS_BLOCK_O) 
+  if(block->type == TETRIS_BLOCK_O) 
     {
       for(i=block->connections; i; i=i->next, j++) 
 	{
