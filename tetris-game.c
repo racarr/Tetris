@@ -24,14 +24,15 @@ tetris_game_new (void)
   TetrisGame *ret;
   
   /* Allocate new game */
-  /* Zero board array */
-  
+  ret = g_malloc0 (sizeof(TetrisGame));
+
   return ret;
 }
 
 void 
 tetris_game_free (void)
 {
+  g_free (ret);
 }
 
 void
