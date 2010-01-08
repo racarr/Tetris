@@ -43,6 +43,22 @@ tetris_game_drop_all_above (TetrisGame *game, guint row)
      if board member is non null (there is a block there):
      move down + update y coord in block
   */
+
+  g_return_val_if_fail(game, NULL);
+
+  guint i, j;
+  for (i=row+1; i<TETRIS_BOARD_HEIGHT; i++) 
+    {
+      for (j = 0; j<TETRIS_BOARD_WIDTH; j++)
+	{
+	  if (game[i][j])
+	    {
+	      game[i][j]->y = game[i][j]->y-1;
+	      game[i-1][j] = game[i][j];
+	      game[i][j] = NULL;
+	    }
+	}
+    }
 }
 
 gboolean
