@@ -164,7 +164,7 @@ tetris_block_is_connected (TetrisBlock *a, TetrisBlock *b)
 {
   GList *i;
 
-  g_return_val_if_fail(a && b, NULL);
+  g_return_val_if_fail(a && b, FALSE);
   
   for (i = a->connections; i; i = i->next)
     {
