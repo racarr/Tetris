@@ -39,10 +39,9 @@ void
 tetris_game_drop_all_above (TetrisGame *game, guint row)
 {
   /* Is game non null */
-  /* Zero everything at Y=row + free blocks */
   /* Go through all Y's above row:
-        if board member is non null (there is a block there):
-    	   move down + update y coord in block
+     if board member is non null (there is a block there):
+     move down + update y coord in block
   */
 }
 
