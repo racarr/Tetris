@@ -34,10 +34,8 @@ tetris_block_new (guint x, guint y, TetrisBlockType type, gboolean is_center_of_
 {
   TetrisBlock *ret;
   
-  /* Allocate Block */
   ret = g_malloc0 (sizeof(TetrisBlock));
 
-  /* Initialize Variables*/
   ret->x = x;
   ret->y = y;
   ret->type = type;
@@ -55,9 +53,8 @@ tetris_block_new (guint x, guint y, TetrisBlockType type, gboolean is_center_of_
 void
 tetris_block_free (TetrisBlock *block)
 {
-  /* Free blocks connection member */
   g_list_free(block->connections);
-  /* Free block */
+
   g_free(block);
 }
 
@@ -74,18 +71,16 @@ tetris_block_free (TetrisBlock *block)
 TetrisBlock *
 tetris_block_copy (TetrisBlock *block)
 {
+  GList *i;
   TetrisBlock *ret;
-  
-  /* Make sure block is non null */
-  if(!block) {
-    return NULL;
-  }
-
   TetrisBlock **knex;
+  guint j = 0;
+  
+  g_return_val_if_fail(block, NULL);
+
   knex = g_malloc0 (sizeof(TetrisBlock *) * (g_list_length(block->connections)+1));
 
-  GList *i;
-  guint j = 0;
+
   for (i = block->connections; i; i = i->next, j++) 
     {
       TetrisBlock *c = (TetrisBlock *)i->data;
@@ -114,15 +109,12 @@ tetris_block_copy (TetrisBlock *block)
 void
 tetris_block_get_center_of_mass (TetrisBlock *block, guint *x, guint *y)
 {
-  /* Make sure block is non null */
-  if(!block) {
-    return;
-  }
-
   GList *i;
   guint x_avg, y_avg, j=0;
   TetrisBlock *c;
-  
+
+  g_return_if_fail (block);
+
   /* Is block type TETRIS O? if so center of mass is average of other
      blocks coords */
   if(block->type == TETRIS_BLOCK_O) 
@@ -142,17 +134,18 @@ tetris_block_get_center_of_mass (TetrisBlock *block, guint *x, guint *y)
 	  
   /* If not, go through block->connections and search for block with
      b->center_of_mass == TRUE */
-  else {
-    for(i=block->connections; i; i=i->next) 
-      {
-	c = (TetrisBlock *)i->data;
-	if( c->center_of_mass ) 
-	  {
-	    *x = c->x;
-	    *y = c->y;
-	  }
-      }
-  }
+  else 
+    {
+      for(i=block->connections; i; i=i->next) 
+	{
+	  c = (TetrisBlock *)i->data;
+	  if( c->center_of_mass ) 
+	    {
+	      *x = c->x;
+	      *y = c->y;
+	    }
+	}
+    }
   return;
 }
 
@@ -170,6 +163,9 @@ gboolean
 tetris_block_is_connected (TetrisBlock *a, TetrisBlock *b)
 {
   GList *i;
+
+  g_return_val_if_fail(a && b, NULL);
+  
   for (i = a->connections; i; i = i->next)
     {
       TetrisBlock *j = (TetrisBlock *)i->data;
