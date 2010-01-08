@@ -66,10 +66,27 @@ tetris_game_move_is_acceptable (TetrisGame *game, TetrisBlock *block, TetrisBloc
 {
   /* Is game non null */
   /* For every block in new block connections:
-         is y < 0 or x < 0 or x >= TILE_WIDTH? return false
+         is y < 0 or x < 0 or x >= TETRIS_BOARD_WIDTH? return false
          is the block at x/y != NULL and not connected to our block?
          return false */
   /* Return true */
+
+  g_return_val_if_fail(game, FALSE);
+
+  GList *i;
+  for (i = new_block->connections; i; i = i->next) 
+    {
+      TetrisBlock *c = (TetrisBlock *)i->data;
+      if (c->y < 0 || c->x < 0 || c->x >= TETRIS_BOARD_WIDTH) 
+	{
+	  return false;
+	}
+      if (game[c->y][c->x] != NULL && !tetris_block_is_connected(game[c->y][c->x], block))
+	{
+	  return false;
+	}
+     }
+  return true;
 }
 
 gboolean
