@@ -79,14 +79,14 @@ tetris_game_move_is_acceptable (TetrisGame *game, TetrisBlock *block, TetrisBloc
       TetrisBlock *c = (TetrisBlock *)i->data;
       if (c->y < 0 || c->x < 0 || c->x >= TETRIS_BOARD_WIDTH) 
 	{
-	  return false;
+	  return FALSE;
 	}
-      if (game[c->y][c->x] != NULL && !tetris_block_is_connected(game[c->y][c->x], block))
+      if (game->board[c->y][c->x] != NULL && !tetris_block_is_connected(game->board[c->y][c->x], block))
 	{
-	  return false;
+	  return FALSE;
 	}
      }
-  return true;
+  return TRUE;
 }
 
 gboolean
