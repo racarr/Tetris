@@ -124,7 +124,7 @@ tetris_game_move_block (TetrisGame *game, TetrisBlock *block, TetrisDirection di
   for (i = block->connections; i; i = i->next) 
     {
       TetrisBlock *c = (TetrisBlock *)i->data;
-      game->board[c-y][c->x] = NULL;
+      game->board[c->y][c->x] = NULL;
     }
 
   for (i = block->connections; i; i = i->next) 
@@ -148,4 +148,42 @@ tetris_game_rotate_block (TetrisGame *game, TetrisBlock *block)
 {
   g_return_val_if_fail(block, FALSE);
 
+  guint cx, cy;
+  TetrisBlock *test_block = tetris_block_copy(block);
+  
+  tetris_block_get_center_of_mass (block, cx, cy);
+  
+  GList *i;
+  guint new_x, new_y;
+  for (i = test_block->connections; i; i = i->next) 
+    {
+      TetrisBlock *b = (TetrisBlock *)i->data;
+      new_x = cx - (b->y - cy);
+      new_y = cy + (b->x - cx);
+      b->x = new_x;
+      b->y = new_y;
+    }
+
+  if(!tetris_game_move_is_acceptable(game, block, test_block)) 
+    {
+      return FALSE;
+    }
+  
+  for (i = block->connections; i; i = i->next) 
+    {
+      TetrisBlock *b = (TetrisBlock *)i->data;
+      game->board[b->y][b->x] = NULL;
+    }
+
+  for (i = block->connections; i; i = i->next) 
+    {
+      TetrisBlock *b = (TetrisBlock *)i->data;
+      new_x = cx - (b->y - cy);
+      new_y = cy - (b->x - cx);
+      b->x = new_x;
+      b->y = new_y;
+      game->board[b->y][b->x] = b;
+    }
+
+  return TRUE;
 }
