@@ -11,7 +11,10 @@ test_block_functions (void)
   g_assert (t1->y == 0);
   g_assert (t1->type == TETRIS_BLOCK_I);
   g_assert (t1->center_of_mass == FALSE);
-  g_assert (t1->connections == NULL);
+  
+  // Add block to it's own connections so copy works on free standing
+  // block
+  t1->connections = g_list_append (t1->connections, t1);
   
   t2 = tetris_block_copy (t1);
   g_assert (t2->x == t1->x);
