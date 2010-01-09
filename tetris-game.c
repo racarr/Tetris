@@ -93,11 +93,43 @@ gboolean
 tetris_game_move_block (TetrisGame *game, TetrisBlock *block, TetrisDirection direction)
 {
   /* Is block non null */
+  g_return_val_if_fail(block, FALSE);
+
   gint dx, dy = 0;
-  TetrisBlock *test_block;
+  TetrisBlock *test_block;  
+
+  switch(direction)
+    {
+    case TETRIS_DIRECTION_LEFT:  dx = -1; dy =  0; break;
+    case TETRIS_DIRECTION_RIGHT: dx =  1; dy =  0; break;
+    case TETRIS_DIRECTION_DOWN:  dx =  0; dy = -1; break;
+    default:  g_assert_not_reached();
+    }
+
+  test_block = tetris_block_copy(block);
+
+  GList *i;
+  for (i = test_block->connections; i; i = i->next) 
+    {
+      TetrisBlock *c = (TetrisBlock *)i->data;
+      c->x = c->x + dx; 
+      c->y = c->y + dy;
+    }
+
+  if(!tetris_game_move_is_acceptable(game, block, test_block)) 
+    {
+      return FALSE;
+    }
+
+  GList *j;
+  for (j = test_block->connections; j; j = j->next) 
+    {
+      TetrisBlock *c = (TetrisBlock *)i->data;
+      c->x = c->x + dx;
+      c->y = c->y + dy;
+      game->board[c->y][c->x] = c;
+    }
   
-  
-  /* Compute dx and dy based on direction */
   /* Copy block to test block */
   /* Translate all blocks connected to test block by dx/dy */
   /* Is test_block an acceptable move? if not return false, otherwise
