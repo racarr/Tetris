@@ -122,7 +122,13 @@ tetris_game_move_block (TetrisGame *game, TetrisBlock *block, TetrisDirection di
     }
 
   GList *j;
-  for (j = test_block->connections; j; j = j->next) 
+  for (j = block->connections; j; j = j->next) 
+    {
+      TetrisBlock *c = (TetrisBlock *)i->data;
+      game->board[c-y][c->x] = NULL;
+    }
+
+  for (j = block->connections; j; j = j->next) 
     {
       TetrisBlock *c = (TetrisBlock *)i->data;
       c->x = c->x + dx;
