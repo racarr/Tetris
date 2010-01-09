@@ -130,6 +130,7 @@ tetris_game_move_block (TetrisGame *game, TetrisBlock *block, TetrisDirection di
       game->board[c->y][c->x] = c;
     }
   
+  /* Compute dx and dy:- based on direction */
   /* Copy block to test block */
   /* Translate all blocks connected to test block by dx/dy */
   /* Is test_block an acceptable move? if not return false, otherwise
