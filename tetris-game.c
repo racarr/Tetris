@@ -121,14 +121,13 @@ tetris_game_move_block (TetrisGame *game, TetrisBlock *block, TetrisDirection di
       return FALSE;
     }
 
-  GList *j;
-  for (j = block->connections; j; j = j->next) 
+  for (i = block->connections; i; i = i->next) 
     {
       TetrisBlock *c = (TetrisBlock *)i->data;
       game->board[c-y][c->x] = NULL;
     }
 
-  for (j = block->connections; j; j = j->next) 
+  for (i = block->connections; i; i = i->next) 
     {
       TetrisBlock *c = (TetrisBlock *)i->data;
       c->x = c->x + dx;
@@ -147,4 +146,6 @@ tetris_game_move_block (TetrisGame *game, TetrisBlock *block, TetrisDirection di
 gboolean 
 tetris_game_rotate_block (TetrisGame *game, TetrisBlock *block)
 {
+  g_return_val_if_fail(block, FALSE);
+
 }
