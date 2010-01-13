@@ -167,3 +167,16 @@ tetris_game_rotate_block (TetrisGame *game, TetrisBlock *block)
 
   return TRUE;
 }
+
+void
+tetris_game_place_block (TetrisGame *game, TetrisBlock *block)
+{
+  GList *i;
+  
+  for (i = block->connections; i; i = i->next)
+    {
+      TetrisBlock *c = (TetrisBlock *)i->data;
+      
+      game->board[c->y][c->x] = c;
+    }
+}
