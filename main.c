@@ -15,13 +15,13 @@ make_block_actor (TetrisBlockType type)
   /* Set border color to black + some width */
   /* Set color based on block type */
   
-  ClutterColor black = {0x00, 0x00, 0x00, 0xff);
+  ClutterColor black = {0x00, 0x00, 0x00, 0xff};
   ClutterColor block_color;
 
   ClutterActor *rect = clutter_rectangle_new();
 
   clutter_actor_set_size (rect, BLOCK_DIMENSION, BLOCK_DIMENSION);
-  clutter_rectangle_set_border_color (CLUTTER_RECTANGLE(rect), black);
+  clutter_rectangle_set_border_color (CLUTTER_RECTANGLE(rect), &black);
   clutter_rectangle_set_border_width (CLUTTER_RECTANGLE(rect), 5);
 
   switch(type)
@@ -36,7 +36,7 @@ make_block_actor (TetrisBlockType type)
     default: g_assert_not_reached();
     }
 
-  clutter_rectangle_set_color(CLUTTER_RECTANGLE (rect), block_color);
+  clutter_rectangle_set_color(CLUTTER_RECTANGLE (rect), &block_color);
   
   return rect;
 }
