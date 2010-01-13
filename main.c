@@ -7,6 +7,19 @@
 
 ClutterActor *stage;
 
+static ClutterActor *
+make_block_actor (TetrisBlockType type)
+{
+  ClutterActor *rect;
+
+  /* Make a clutter rectangle */
+  /* Set size to BLOCK_DIMENSION*BLOCK_DIMENSION */
+  /* Set border color to black + some width */
+  /* Set color based on block type */
+  
+  return rect;
+}
+
 int
 main (int argc, char **argv)
 {
