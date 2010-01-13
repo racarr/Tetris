@@ -54,6 +54,8 @@ typedef struct _TetrisBlock
   TetrisBlockType type;
   
   gboolean center_of_mass;
+  
+  gpointer priv;
 } TetrisBlock;
 
 typedef struct _TetrisGame
