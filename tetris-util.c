@@ -29,6 +29,15 @@
 void
 tetris_interconnect_blocks (TetrisBlock **blocks, guint num_blocks)
 {
+  guint i, j;
+
+  for (i=0; i<num_blocks; i++) 
+    {
+      for (j=0; j<num_blocks; j++) 
+	{
+	  blocks[i]->connections = g_list_append(blocks[i]->connections, blocks[j]);
+	}
+    }
 }
 
 TetrisBlock *
