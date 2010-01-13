@@ -10,12 +10,33 @@ ClutterActor *stage;
 static ClutterActor *
 make_block_actor (TetrisBlockType type)
 {
-  ClutterActor *rect;
-
   /* Make a clutter rectangle */
   /* Set size to BLOCK_DIMENSION*BLOCK_DIMENSION */
   /* Set border color to black + some width */
   /* Set color based on block type */
+  
+  ClutterColor black = {0x00, 0x00, 0x00, 0xff);
+  ClutterColor block_color;
+
+  ClutterActor *rect = clutter_rectangle_new();
+
+  clutter_actor_set_size (rect, BLOCK_DIMENSION, BLOCK_DIMENSION);
+  clutter_rectangle_set_border_color (CLUTTER_RECTANGLE(rect), black);
+  clutter_rectangle_set_border_width (CLUTTER_RECTANGLE(rect), 5);
+
+  switch(type)
+    {
+    case TETRIS_BLOCK_I: clutter_color_from_string(&block_color, "plum"); break;
+    case TETRIS_BLOCK_J: clutter_color_from_string(&block_color, "DarkTurquoise"); break;
+    case TETRIS_BLOCK_L: clutter_color_from_string(&block_color, "azure"); break;
+    case TETRIS_BLOCK_O: clutter_color_from_string(&block_color, "SeaGreen1"); break;
+    case TETRIS_BLOCK_S: clutter_color_from_string(&block_color, "LemonChiffon"); break;
+    case TETRIS_BLOCK_T: clutter_color_from_string(&block_color, "goldenrod"); break;
+    case TETRIS_BLOCK_Z: clutter_color_from_string(&block_color, "tomato"); break;
+    default: g_assert_not_reached();
+    }
+
+  clutter_rectangle_set_color(CLUTTER_RECTANGLE (rect), block_color);
   
   return rect;
 }
