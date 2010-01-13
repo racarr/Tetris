@@ -23,7 +23,6 @@ tetris_game_new (void)
 {
   TetrisGame *ret;
   
-  /* Allocate new game */
   ret = g_malloc0 (sizeof(TetrisGame));
 
   return ret;
@@ -38,15 +37,10 @@ tetris_game_free (TetrisGame *game)
 void
 tetris_game_drop_all_above (TetrisGame *game, guint row)
 {
-  /* Is game non null */
-  /* Go through all Y's above row:
-     if board member is non null (there is a block there):
-     move down + update y coord in block
-  */
+  guint i, j;
 
   g_return_if_fail(game);
 
-  guint i, j;
   for (i=row+1; i<TETRIS_BOARD_HEIGHT; i++) 
     {
       for (j = 0; j<TETRIS_BOARD_WIDTH; j++)
@@ -64,16 +58,9 @@ tetris_game_drop_all_above (TetrisGame *game, guint row)
 gboolean
 tetris_game_move_is_acceptable (TetrisGame *game, TetrisBlock *block, TetrisBlock *new_block)
 {
-  /* Is game non null */
-  /* For every block in new block connections:
-         is y < 0 or x < 0 or x >= TETRIS_BOARD_WIDTH? return false
-         is the block at x/y != NULL and not connected to our block?
-         return false */
-  /* Return true */
-
+  GList *i;
   g_return_val_if_fail(game, FALSE);
 
-  GList *i;
   for (i = new_block->connections; i; i = i->next) 
     {
       TetrisBlock *c = (TetrisBlock *)i->data;
@@ -92,11 +79,11 @@ tetris_game_move_is_acceptable (TetrisGame *game, TetrisBlock *block, TetrisBloc
 gboolean
 tetris_game_move_block (TetrisGame *game, TetrisBlock *block, TetrisDirection direction)
 {
-  /* Is block non null */
-  g_return_val_if_fail(block, FALSE);
-
-  gint dx, dy = 0;
   TetrisBlock *test_block;  
+  GList *i;
+  gint dx, dy = 0;
+
+  g_return_val_if_fail(block, FALSE);
 
   switch(direction)
     {
@@ -108,7 +95,6 @@ tetris_game_move_block (TetrisGame *game, TetrisBlock *block, TetrisDirection di
 
   test_block = tetris_block_copy(block);
 
-  GList *i;
   for (i = test_block->connections; i; i = i->next) 
     {
       TetrisBlock *c = (TetrisBlock *)i->data;
@@ -135,26 +121,20 @@ tetris_game_move_block (TetrisGame *game, TetrisBlock *block, TetrisDirection di
       game->board[c->y][c->x] = c;
     }
   
-  /* Compute dx and dy:- based on direction */
-  /* Copy block to test block */
-  /* Translate all blocks connected to test block by dx/dy */
-  /* Is test_block an acceptable move? if not return false, otherwise
-     perform translation on actual block + update game board */
   return TRUE;
 }
 
 gboolean 
 tetris_game_rotate_block (TetrisGame *game, TetrisBlock *block)
 {
-  g_return_val_if_fail(block, FALSE);
-
-  guint cx, cy;
   TetrisBlock *test_block = tetris_block_copy(block);
+  GList *i;
+  guint new_x, new_y, cx, cy;
+
+  g_return_val_if_fail(block, FALSE);
   
   tetris_block_get_center_of_mass (block, cx, cy);
-  
-  GList *i;
-  guint new_x, new_y;
+
   for (i = test_block->connections; i; i = i->next) 
     {
       TetrisBlock *b = (TetrisBlock *)i->data;
