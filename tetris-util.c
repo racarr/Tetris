@@ -88,4 +88,16 @@ tetris_create_Z (guint x, guint y)
 TetrisBlock *
 tetris_create_random (guint x, guint y)
 {
+  gint32 r = g_random_int_range(1,8);
+  switch (r)
+    {
+    case 1: return tetris_create_I(x,y);
+    case 2: return tetris_create_J(x,y);
+    case 3: return tetris_create_L(x,y); 
+    case 4: return tetris_create_O(x,y); 
+    case 5: return tetris_create_S(x,y);
+    case 6: return tetris_create_T(x,y); 
+    case 7: return tetris_create_Z(x,y); 
+    default: g_assert_not_reached();
+    }
 }
