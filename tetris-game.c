@@ -133,7 +133,7 @@ tetris_game_rotate_block (TetrisGame *game, TetrisBlock *block)
 
   g_return_val_if_fail(block, FALSE);
   
-  tetris_block_get_center_of_mass (block, cx, cy);
+  tetris_block_get_center_of_mass (block, &cx, &cy);
 
   for (i = test_block->connections; i; i = i->next) 
     {
