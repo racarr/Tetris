@@ -64,15 +64,15 @@ add_new_block ()
 
   TetrisBlock *block = tetris_create_random(3, 20);
   tetris_game_place_block(game, block);
-  guint *gamex, *gamey;
+  guint gamex, gamey;
   
   GList *i;
   for (i = block->connections; i; i = i->next) 
     {
       block->priv = make_block_actor(block->type);
       clutter_container_add_actor(CLUTTER_CONTAINER(stage), block->priv);
-      games_coords_to_stage_coords(block->x, block->y, gamex, gamey);
-      clutter_actor_set_position(block->priv, *gamex, *gamey);
+      game_coords_to_stage_coords(block->x, block->y, &gamex, &gamey);
+      clutter_actor_set_position(block->priv, gamex, gamey);
       clutter_actor_show(block->priv);
     }
 }
