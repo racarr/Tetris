@@ -6,6 +6,7 @@
 #define BLOCK_DIMENSION 30
 
 ClutterActor *stage;
+TetrisGame *game;
 
 static ClutterActor *
 make_block_actor (TetrisBlockType type)
@@ -56,6 +57,8 @@ main (int argc, char **argv)
   clutter_stage_set_color (CLUTTER_STAGE (stage), &black);
   
   clutter_actor_show (stage);
+  
+  game = tetris_game_new ();
   
   clutter_main();
   
