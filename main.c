@@ -16,6 +16,20 @@ game_coords_to_stage_coords (guint gamex, guint gamey,
   *stagey = BLOCK_DIMENSION * TETRIS_BOARD_HEIGHT - gamey * BLOCK_DIMENSION;  
 }
 
+static void
+update_actor_coords (TetrisBlock *block) 
+{
+  guint stagex, stagey;
+  
+  GList *i;
+  for (i = block->connections; i; i = i->next) 
+    {
+      TetrisBlock *c = (TetrisBlock *)i->data;
+      game_coords_to_stage_coords (c->x, c->y, &stagex, &stagey);
+      clutter_actor_set_position(c->priv, stagex, stagey);
+    }
+}
+
 static ClutterActor *
 make_block_actor (TetrisBlockType type)
 {
@@ -50,7 +64,7 @@ make_block_actor (TetrisBlockType type)
   return rect;
 }
 
-gboolean
+static gboolean
 move_block_down (gpointer data)
 {
   /* move block in TetrisGame with tetris_game_move_block */
@@ -86,7 +100,7 @@ add_new_block ()
 
   TetrisBlock *block = tetris_create_random(3, 19);
   tetris_game_place_block(game, block);
-  guint gamex, gamey;
+  guint stagex, stagey;
   
   GList *i;
   for (i = block->connections; i; i = i->next) 
@@ -94,8 +108,8 @@ add_new_block ()
       TetrisBlock *c = (TetrisBlock *)i->data;
       c->priv = make_block_actor(c->type);
       clutter_container_add_actor(CLUTTER_CONTAINER(stage), c->priv);
-      game_coords_to_stage_coords(c->x, c->y, &gamex, &gamey);
-      clutter_actor_set_position(c->priv, gamex, gamey);
+      game_coords_to_stage_coords(c->x, c->y, &stagex, &stagey);
+      clutter_actor_set_position(c->priv, stagex, stagey);
       clutter_actor_show(c->priv);
     }
   
