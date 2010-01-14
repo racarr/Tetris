@@ -53,13 +53,23 @@ make_block_actor (TetrisBlockType type)
 gboolean
 move_block_down (gpointer data)
 {
-  TetrisBlock *block;
-  gboolean moved;
-  
   /* move block in TetrisGame with tetris_game_move_block */
   /* If move was successful, update block coordinates in clutter world
      return TRUE*/
   /* If not return FALSE */
+
+  TetrisBlock *block = (TetrisBlock*) data;
+  gboolean moved = tetris_game_move_block(game, block, TETRIS_DIRECTION_DOWN);
+
+  if (moved) 
+    {
+      update_actor_coords(block);
+      return TRUE;
+    }
+  else
+    {
+      return FALSE;
+    }
 }
 
 static void
