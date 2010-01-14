@@ -12,8 +12,8 @@ static void
 game_coords_to_stage_coords (guint gamex, guint gamey,
 			     guint *stagex, guint *stagey)
 {
-  stagex = gamex * BLOCK_DIMENSION;
-  stagey = TETRIS_BOARD_HEIGHT - gamey * BLOCK_DIMENSION;  
+  *stagex = gamex * BLOCK_DIMENSION;
+  *stagey = TETRIS_BOARD_HEIGHT - gamey * BLOCK_DIMENSION;  
 }
 
 static ClutterActor *
@@ -49,6 +49,22 @@ make_block_actor (TetrisBlockType type)
   
   return rect;
 }
+
+static void
+add_new_block ()
+{
+  TetrisBlock *block;
+  
+  /* Create random block at 3,20*/
+  /* Put block on game with tetris_game_place_block */
+  /* For each b in block->connections: */
+  /*     Make block actor.
+         Add to stage at right coords.
+         clutter_actor_show. 
+         set b->priv to actor */
+}
+
+
 
 int
 main (int argc, char **argv)
