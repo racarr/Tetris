@@ -64,7 +64,7 @@ tetris_game_move_is_acceptable (TetrisGame *game, TetrisBlock *block, TetrisBloc
   for (i = new_block->connections; i; i = i->next) 
     {
       TetrisBlock *c = (TetrisBlock *)i->data;
-      if (c->y < 0 || c->x < 0 || c->x >= TETRIS_BOARD_WIDTH) 
+      if (c->y <= 0 || c->x < 0 || c->x >= TETRIS_BOARD_WIDTH) 
 	{
 	  return FALSE;
 	}

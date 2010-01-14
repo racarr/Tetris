@@ -50,7 +50,7 @@ typedef enum
 typedef struct _TetrisBlock
 {
   GList *connections;
-  guint x,y;
+  gint x,y;
   TetrisBlockType type;
   
   gboolean center_of_mass;

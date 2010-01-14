@@ -64,6 +64,8 @@ make_block_actor (TetrisBlockType type)
   return rect;
 }
 
+static void add_new_block();
+
 static gboolean
 move_block_down (gpointer data)
 {
@@ -82,6 +84,7 @@ move_block_down (gpointer data)
     }
   else
     {
+      add_new_block();
       return FALSE;
     }
 }
@@ -113,7 +116,7 @@ add_new_block ()
       clutter_actor_show(c->priv);
     }
   
-  g_timeout_add (800, move_block_down, block);
+  g_timeout_add (400, move_block_down, block);
 }
  
 int
