@@ -53,8 +53,7 @@ make_block_actor (TetrisBlockType type)
 static void
 add_new_block ()
 {
-  TetrisBlock *block;
-  
+
   /* Create random block at 3,20*/
   /* Put block on game with tetris_game_place_block */
   /* For each b in block->connections: */
@@ -62,10 +61,22 @@ add_new_block ()
          Add to stage at right coords.
          clutter_actor_show. 
          set b->priv to actor */
+
+  TetrisBlock *block = tetris_create_random(3, 20);
+  tetris_game_place_block(game, block);
+  guint *gamex, *gamey;
+  
+  GList *i;
+  for (i = block->connections; i; i = i->next) 
+    {
+      block->priv = make_block_actor(block->type);
+      clutter_container_add_actor(CLUTTER_CONTAINER(stage), block->priv);
+      games_coords_to_stage_coords(block->x, block->y, gamex, gamey);
+      clutter_actor_set_position(block->priv, *gamex, *gamey);
+      clutter_actor_show(block->priv);
+    }
 }
-
-
-
+  
 int
 main (int argc, char **argv)
 {
