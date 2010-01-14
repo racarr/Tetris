@@ -68,7 +68,8 @@ tetris_game_move_is_acceptable (TetrisGame *game, TetrisBlock *block, TetrisBloc
 	{
 	  return FALSE;
 	}
-      if (game->board[c->y][c->x] != NULL && !tetris_block_is_connected(game->board[c->y][c->x], block))
+      //only test if block is actually at a valid y
+      if (c->y < TETRIS_BOARD_HEIGHT && game->board[c->y][c->x] != NULL && !tetris_block_is_connected(game->board[c->y][c->x], block))
 	{
 	  return FALSE;
 	}
@@ -124,12 +125,22 @@ tetris_game_move_block (TetrisGame *game, TetrisBlock *block, TetrisDirection di
   return TRUE;
 }
 
+/* 
+   when i try to rotate the blue and red pieces at the top, i get a series of 
+   assertion 'clutter_is_actor(self)' failed 
+   errors. it doesn't seem to happen with the other pieces.
+   otherwise, rotate now seems to work. 
+   the seg fault on rotate was because we were testing tetris_block_is_connected
+   (called in tetris_game_move_is_acceptable)
+   against a board piece that didn't exist (was off the top of the board)
+*/
+
 gboolean 
 tetris_game_rotate_block (TetrisGame *game, TetrisBlock *block)
 {
   TetrisBlock *test_block = tetris_block_copy(block);
   GList *i;
-  guint new_x, new_y, cx, cy;
+  guint new_x, new_y, cx, cy, j, dy = 0;
 
   g_return_val_if_fail(block, FALSE);
   
@@ -147,6 +158,33 @@ tetris_game_rotate_block (TetrisGame *game, TetrisBlock *block)
   if(!tetris_game_move_is_acceptable(game, block, test_block)) 
     {
       return FALSE;
+    }
+
+  /* 
+     test_block has already been rotated,
+     for each block in test_block
+       if the block extends past the height of the board
+       if this is the topmost block that extends past the height of the board
+       set dy equal to how far off it goes
+  */
+  for (i = test_block->connections; i; i = i->next) 
+    {
+      TetrisBlock *c = (TetrisBlock *)i->data;
+      if (c->y >= TETRIS_BOARD_HEIGHT) 
+	{
+	  if (c->y - TETRIS_BOARD_HEIGHT + 1 > dy)
+	    dy = c->y - TETRIS_BOARD_HEIGHT + 1;
+	}
+    }
+
+  /* 
+     block has not yet been rotated, before rotating
+     call move_block to move the block down far enough such that
+     when it rotates, it doesn't go off the board
+   */
+  for (j = 0; j<dy; j++) 
+    {
+      tetris_game_move_block(game, block, TETRIS_DIRECTION_DOWN);
     }
   
   for (i = block->connections; i; i = i->next) 
