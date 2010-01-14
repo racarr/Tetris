@@ -12,7 +12,8 @@ static void
 game_coords_to_stage_coords (guint gamex, guint gamey,
 			     guint *stagex, guint *stagey)
 {
-  
+  stagex = gamex * BLOCK_DIMENSION;
+  stagey = TETRIS_BOARD_HEIGHT - gamey * BLOCK_DIMENSION;  
 }
 
 static ClutterActor *
