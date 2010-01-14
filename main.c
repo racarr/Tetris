@@ -31,7 +31,7 @@ make_block_actor (TetrisBlockType type)
 
   clutter_actor_set_size (rect, BLOCK_DIMENSION, BLOCK_DIMENSION);
   clutter_rectangle_set_border_color (CLUTTER_RECTANGLE(rect), &black);
-  clutter_rectangle_set_border_width (CLUTTER_RECTANGLE(rect), 5);
+  clutter_rectangle_set_border_width (CLUTTER_RECTANGLE(rect), 2);
 
   switch(type)
     {
