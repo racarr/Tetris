@@ -138,8 +138,8 @@ tetris_game_rotate_block (TetrisGame *game, TetrisBlock *block)
   for (i = test_block->connections; i; i = i->next) 
     {
       TetrisBlock *b = (TetrisBlock *)i->data;
-      new_x = cx - (b->y - cy);
-      new_y = cy + (b->x - cx);
+      new_x = cx - (cy - ((gfloat) b->y));
+      new_y = cy + (cx - ((gfloat) b->x));
       b->x = new_x;
       b->y = new_y;
     }
@@ -158,8 +158,8 @@ tetris_game_rotate_block (TetrisGame *game, TetrisBlock *block)
   for (i = block->connections; i; i = i->next) 
     {
       TetrisBlock *b = (TetrisBlock *)i->data;
-      new_x = cx - (b->y - cy);
-      new_y = cy - (b->x - cx);
+      new_x = cx - (cy - ((gfloat) b->y));
+      new_y = cy + (cx - ((gfloat) b->x));
       b->x = new_x;
       b->y = new_y;
       game->board[b->y][b->x] = b;
