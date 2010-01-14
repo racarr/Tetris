@@ -8,6 +8,8 @@
 ClutterActor *stage;
 TetrisGame *game;
 
+TetrisBlock *current_block;
+
 static void
 game_coords_to_stage_coords (guint gamex, guint gamey,
 			     guint *stagex, guint *stagey)
@@ -102,10 +104,12 @@ add_new_block ()
          set b->priv to actor */
 
   TetrisBlock *block = tetris_create_random(3, 19);
-  tetris_game_place_block(game, block);
   guint stagex, stagey;
-  
   GList *i;
+  
+  tetris_game_place_block(game, block);
+  current_block = block;
+
   for (i = block->connections; i; i = i->next) 
     {
       TetrisBlock *c = (TetrisBlock *)i->data;
@@ -117,6 +121,24 @@ add_new_block ()
     }
   
   g_timeout_add (400, move_block_down, block);
+}
+
+static gboolean
+stage_key_pressed (ClutterActor *actor,
+		   ClutterEvent *event,
+		   gpointer user_data)
+{
+  switch (clutter_event_get_key_symbol (event))
+    {
+    case CLUTTER_Left:
+      g_message("Left!");
+      break;
+    case CLUTTER_Right:
+      g_message("Right!");
+      break;
+    default: break;
+    }
+  return TRUE;
 }
  
 int
@@ -134,6 +156,8 @@ main (int argc, char **argv)
   clutter_stage_set_color (CLUTTER_STAGE (stage), &black);
   
   clutter_actor_show (stage);
+  
+  g_signal_connect (stage, "key-press-event", G_CALLBACK (stage_key_pressed), NULL);
   
   game = tetris_game_new ();
   
