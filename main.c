@@ -8,6 +8,13 @@
 ClutterActor *stage;
 TetrisGame *game;
 
+static void
+game_coords_to_stage_coords (guint gamex, guint gamey,
+			     guint *stagex, guint *stagey)
+{
+  
+}
+
 static ClutterActor *
 make_block_actor (TetrisBlockType type)
 {
