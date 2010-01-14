@@ -61,7 +61,7 @@ tetris_create_J (guint x, guint y)
   TetrisBlock *blocks[] =
     {
       tetris_block_new(x, y, TETRIS_BLOCK_J, FALSE),
-      tetris_block_new(x, y + 1, TETRIS_BLOCK_J, FALSE),
+      tetris_block_new(x, y - 1, TETRIS_BLOCK_J, FALSE),
       tetris_block_new(x + 1, y, TETRIS_BLOCK_J, TRUE),
       tetris_block_new(x + 2, y, TETRIS_BLOCK_J, FALSE)
     };
@@ -78,7 +78,7 @@ tetris_create_L(guint x, guint y)
       tetris_block_new(x, y, TETRIS_BLOCK_L, FALSE),
       tetris_block_new(x + 1, y, TETRIS_BLOCK_L, TRUE),
       tetris_block_new(x + 2, y, TETRIS_BLOCK_L, FALSE),
-      tetris_block_new(x + 2, y + 1, TETRIS_BLOCK_L, FALSE)
+      tetris_block_new(x + 2, y - 1, TETRIS_BLOCK_L, FALSE)
     };
   tetris_interconnect_blocks(blocks, 4);
 	
@@ -91,8 +91,8 @@ tetris_create_O(guint x, guint y)
   TetrisBlock *blocks[] =
     {
       tetris_block_new(x, y, TETRIS_BLOCK_O, FALSE),
-      tetris_block_new(x, y + 1, TETRIS_BLOCK_O, FALSE),
-      tetris_block_new(x + 1, y + 1, TETRIS_BLOCK_O, FALSE),
+      tetris_block_new(x, y - 1, TETRIS_BLOCK_O, FALSE),
+      tetris_block_new(x + 1, y - 1, TETRIS_BLOCK_O, FALSE),
       tetris_block_new(x + 1, y, TETRIS_BLOCK_O, FALSE)
     };
   tetris_interconnect_blocks(blocks, 4);
@@ -107,8 +107,8 @@ tetris_create_S(guint x, guint y)
     {
       tetris_block_new(x, y, TETRIS_BLOCK_S, FALSE),
       tetris_block_new(x + 1, y, TETRIS_BLOCK_S, TRUE),
-      tetris_block_new(x + 1, y + 1, TETRIS_BLOCK_S, FALSE),
-      tetris_block_new(x + 2, y + 1, TETRIS_BLOCK_S, FALSE)
+      tetris_block_new(x + 1, y - 1, TETRIS_BLOCK_S, FALSE),
+      tetris_block_new(x + 2, y - 1, TETRIS_BLOCK_S, FALSE)
     };
   tetris_interconnect_blocks(blocks, 4);
 	
@@ -121,7 +121,7 @@ TetrisBlock * tetris_create_T(guint x, guint y)
     {
       tetris_block_new(x, y, TETRIS_BLOCK_T, FALSE),
       tetris_block_new(x + 1, y, TETRIS_BLOCK_T, TRUE),
-      tetris_block_new(x + 1, y + 1, TETRIS_BLOCK_T, FALSE),
+      tetris_block_new(x + 1, y - 1, TETRIS_BLOCK_T, FALSE),
       tetris_block_new(x + 2, y, TETRIS_BLOCK_T, FALSE)
     };
   tetris_interconnect_blocks(blocks, 4);
@@ -134,8 +134,8 @@ tetris_create_Z(guint x, guint y)
 {
   TetrisBlock *blocks[] =
     {
-      tetris_block_new(x, y + 1, TETRIS_BLOCK_Z, FALSE),
-      tetris_block_new(x + 1, y + 1, TETRIS_BLOCK_Z, FALSE),
+      tetris_block_new(x, y - 1, TETRIS_BLOCK_Z, FALSE),
+      tetris_block_new(x + 1, y - 1, TETRIS_BLOCK_Z, FALSE),
       tetris_block_new(x + 1, y, TETRIS_BLOCK_Z, TRUE),
       tetris_block_new(x + 2, y, TETRIS_BLOCK_Z, FALSE)
     };

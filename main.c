@@ -13,7 +13,7 @@ game_coords_to_stage_coords (guint gamex, guint gamey,
 			     guint *stagex, guint *stagey)
 {
   *stagex = gamex * BLOCK_DIMENSION;
-  *stagey = TETRIS_BOARD_HEIGHT - gamey * BLOCK_DIMENSION;  
+  *stagey = BLOCK_DIMENSION * TETRIS_BOARD_HEIGHT - gamey * BLOCK_DIMENSION;  
 }
 
 static ClutterActor *
@@ -62,21 +62,22 @@ add_new_block ()
          clutter_actor_show. 
          set b->priv to actor */
 
-  TetrisBlock *block = tetris_create_random(3, 20);
+  TetrisBlock *block = tetris_create_random(3, 19);
   tetris_game_place_block(game, block);
   guint gamex, gamey;
   
   GList *i;
   for (i = block->connections; i; i = i->next) 
     {
-      block->priv = make_block_actor(block->type);
-      clutter_container_add_actor(CLUTTER_CONTAINER(stage), block->priv);
-      game_coords_to_stage_coords(block->x, block->y, &gamex, &gamey);
-      clutter_actor_set_position(block->priv, gamex, gamey);
-      clutter_actor_show(block->priv);
+      TetrisBlock *c = (TetrisBlock *)i->data;
+      c->priv = make_block_actor(c->type);
+      clutter_container_add_actor(CLUTTER_CONTAINER(stage), c->priv);
+      game_coords_to_stage_coords(c->x, c->y, &gamex, &gamey);
+      clutter_actor_set_position(c->priv, gamex, gamey);
+      clutter_actor_show(c->priv);
     }
 }
-  
+ 
 int
 main (int argc, char **argv)
 {
@@ -94,6 +95,8 @@ main (int argc, char **argv)
   clutter_actor_show (stage);
   
   game = tetris_game_new ();
+  
+  add_new_block ();
   
   clutter_main();
   
