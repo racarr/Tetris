@@ -142,6 +142,12 @@ stage_key_pressed (ClutterActor *actor,
 	  update_actor_coords(current_block);
 	}
       break;
+    case CLUTTER_Down:
+      if (tetris_game_move_block(game, current_block, TETRIS_DIRECTION_DOWN))
+	{
+	  update_actor_coords(current_block);
+	}
+      break;
     case CLUTTER_Up:
       if (tetris_game_rotate_block(game, current_block))
 	{
