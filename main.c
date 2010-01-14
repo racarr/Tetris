@@ -50,6 +50,18 @@ make_block_actor (TetrisBlockType type)
   return rect;
 }
 
+gboolean
+move_block_down (gpointer data)
+{
+  TetrisBlock *block;
+  gboolean moved;
+  
+  /* move block in TetrisGame with tetris_game_move_block */
+  /* If move was successful, update block coordinates in clutter world
+     return TRUE*/
+  /* If not return FALSE */
+}
+
 static void
 add_new_block ()
 {
@@ -76,6 +88,8 @@ add_new_block ()
       clutter_actor_set_position(c->priv, gamex, gamey);
       clutter_actor_show(c->priv);
     }
+  
+  g_timeout_add (800, move_block_down, block);
 }
  
 int
